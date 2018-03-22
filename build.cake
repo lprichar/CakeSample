@@ -29,7 +29,7 @@ Task("Version")
 	.Does(() =>
 {
 	var version = GitVersion(new GitVersionSettings());
-	// 0.1.0-feature1.1
+	// 0.1.0-unstable.6
 	Information($"Version = {version.SemVer}");
 });
 
