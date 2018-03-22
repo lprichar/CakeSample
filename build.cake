@@ -1,4 +1,5 @@
 #tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+#tool nuget:?package=GitVersion.CommandLine&version=3.6.5
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -22,6 +23,13 @@ Task("Clean")
     .Does(() =>
 {
     CleanDirectory(buildDir);
+});
+
+Task("Version")
+	.Does(() =>
+{
+	var version = GitVersion(new GitVersionSettings());
+	Information($"Version = {version.SemVer}");
 });
 
 Task("Restore-NuGet-Packages")
