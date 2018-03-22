@@ -28,9 +28,12 @@ Task("Clean")
 Task("Version")
 	.Does(() =>
 {
-	var version = GitVersion(new GitVersionSettings());
-	// 0.1.0-unstable.6
-	Information($"Version = {version.SemVer}");
+	var version = GitVersion(new GitVersionSettings{
+		UpdateAssemblyInfo = true
+	});
+	// 0.3.0
+	Information($"SemVer = {version.SemVer}");
+	Information($"AssemblySemVer = ${version.AssemblySemVer}");
 });
 
 Task("Restore-NuGet-Packages")
