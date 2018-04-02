@@ -61,14 +61,16 @@ Task("Run-Unit-Tests")
     .Does(() =>
 {
     // for .net framework
-    // XUnit2("./**/bin/" + configuration + "/netcoreapp2.0/CakeSample.Test.dll", new XUnit2Settings {
-    //     Parallelism = ParallelismOption.All
-    // });
+    // XUnit2("./**/bin/" + configuration + "/netcoreapp2.0/CakeSample.Test.dll", 
+    //      new XUnit2Settings {
+    //          Parallelism = ParallelismOption.All
+    //      });
 
     // for .net core
-    DotNetCoreTest("./CakeSample.Test/CakeSample.Test.csproj", new DotNetCoreTestSettings {
-        NoBuild = false
-    });
+    DotNetCoreTest("./CakeSample.Test/CakeSample.Test.csproj", 
+        new DotNetCoreTestSettings {
+            NoBuild = false
+        });
 });
 
 //////////////////////////////////////////////////////////////////////
