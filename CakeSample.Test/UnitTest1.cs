@@ -1,8 +1,8 @@
-using System;
 using ClassLibrary1;
+using System;
 using Xunit;
 
-namespace XUnitTestProject1
+namespace CakeSample.Test
 {
     public class UnitTest1
     {

@@ -1,3 +1,6 @@
+#tool nuget:?package=xunit.runner.console&version=2.3.1
+#tool nuget:?package=xunit.runner.visualstudio&version=2.3.1
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -10,7 +13,6 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory($"./ClassLibrary1/bin/{configuration}/netcoreapp2.0");
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -19,7 +21,12 @@ var buildDir = Directory($"./ClassLibrary1/bin/{configuration}/netcoreapp2.0");
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    CleanDirectory($"./ClassLibrary1/bin/");
+    CleanDirectory("./CakeSample.Test/bin/");
+    CleanDirectory("./ConsoleApp1/bin/");
+    CleanDirectory($"./ClassLibrary1/obj/");
+    CleanDirectory("./CakeSample.Test/obj/");
+    CleanDirectory("./ConsoleApp1/obj/");
 });
 
 Task("Version")
@@ -36,11 +43,12 @@ Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore("./XUnitTestProject1.sln");
+    DotNetCoreRestore();
+    //NuGetRestore("./XUnitTestProject1.sln");
 });
 
 Task("Build")
-    .IsDependentOn("Clean")
+    .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
     MSBuild("./XUnitTestProject1.sln", new MSBuildSettings() {
@@ -52,8 +60,14 @@ Task("Run-Unit-Tests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    NUnit3("./src/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
-        NoResults = true
+    // for .net framework
+    // XUnit2("./**/bin/" + configuration + "/netcoreapp2.0/CakeSample.Test.dll", new XUnit2Settings {
+    //     Parallelism = ParallelismOption.All
+    // });
+
+    // for .net core
+    DotNetCoreTest("./CakeSample.Test/CakeSample.Test.csproj", new DotNetCoreTestSettings {
+        NoBuild = false
     });
 });
 
