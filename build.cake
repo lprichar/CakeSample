@@ -1,6 +1,3 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
-#tool nuget:?package=GitVersion.CommandLine&version=3.6.5
-
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -26,39 +23,29 @@ Task("Clean")
 });
 
 Task("Version")
-	.Does(() =>
+    .Does(() =>
 {
-	var version = GitVersion(new GitVersionSettings{
-		UpdateAssemblyInfo = true
-	});
-	// 0.3.0
-	Information($"SemVer = {version.SemVer}");
-	Information($"AssemblySemVer = ${version.AssemblySemVer}");
+    var version = GitVersion(new GitVersionSettings{
+        UpdateAssemblyInfo = true
+    });
+    Information($"SemVer = {version.SemVer}");
+    Information($"AssemblySemVer = ${version.AssemblySemVer}");
 });
 
 Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore("./src/Example.sln");
+    NuGetRestore("./XUnitTestProject1.sln");
 });
 
 Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Clean")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild("./src/Example.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
-    else
-    {
-      // Use XBuild
-      XBuild("./src/Example.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
+    MSBuild("./XUnitTestProject1.sln", new MSBuildSettings() {
+        Configuration = configuration
+    });
 });
 
 Task("Run-Unit-Tests")
@@ -67,7 +54,7 @@ Task("Run-Unit-Tests")
 {
     NUnit3("./src/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
         NoResults = true
-        });
+    });
 });
 
 //////////////////////////////////////////////////////////////////////
