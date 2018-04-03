@@ -1,42 +1,29 @@
 #tool nuget:?package=xunit.runner.console&version=2.3.1
 #tool nuget:?package=xunit.runner.visualstudio&version=2.3.1
-
-//////////////////////////////////////////////////////////////////////
-// ARGUMENTS
-//////////////////////////////////////////////////////////////////////
+#tool nuget:?package=GitVersion.CommandLine&version=3.6.5
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
-//////////////////////////////////////////////////////////////////////
-// PREPARATION
-//////////////////////////////////////////////////////////////////////
-
-// Define directories.
-
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
-
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory($"./ClassLibrary1/bin/");
-    CleanDirectory("./CakeSample.Test/bin/");
-    CleanDirectory("./ConsoleApp1/bin/");
-    CleanDirectory($"./ClassLibrary1/obj/");
-    CleanDirectory("./CakeSample.Test/obj/");
-    CleanDirectory("./ConsoleApp1/obj/");
+    CleanDirectories("./**/bin");
+    CleanDirectories("./**/obj");
 });
 
 Task("Version")
     .Does(() =>
 {
-    var version = GitVersion(new GitVersionSettings{
-        UpdateAssemblyInfo = true
-    });
+    var version = GitVersion();
     Information($"SemVer = {version.SemVer}");
     Information($"AssemblySemVer = ${version.AssemblySemVer}");
+
+	if (!BuildSystem.IsLocalBuild) {
+        GitVersion(new GitVersionSettings{
+            UpdateAssemblyInfo = true
+        });
+    }
 });
 
 Task("Restore-NuGet-Packages")
@@ -49,6 +36,7 @@ Task("Restore-NuGet-Packages")
 
 Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
+    .IsDependentOn("Version")
     .Does(() =>
 {
     MSBuild("./XUnitTestProject1.sln", new MSBuildSettings() {
