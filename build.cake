@@ -1,13 +1,19 @@
 #tool nuget:?package=GitVersion.CommandLine&version=3.6.5
+#tool vswhere
+#tool nuget:?package=xunit.runner.visualstudio&version=2.3.1
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
+var testDirectory = Directory("./CakeSample.Test/");
+var testLocation = testDirectory.Path + $"/**/bin/{configuration}/netcoreapp2.0/*.Test.dll";
+
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectories("./**/bin");
-    CleanDirectories("./**/obj");
+    CleanDirectories($"./**/bin/{configuration}/netcoreapp2.0");
+    CleanDirectories($"./**/obj/{configuration}/netcoreapp2.0");
+    CleanDirectories($"./TestResults");
 });
 
 Task("Restore-NuGet-Packages")
@@ -59,6 +65,34 @@ Task("Run-Unit-Tests")
             Configuration = configuration,
             NoBuild = true
         });
+});
+
+// the VSTest task has a bug where it doesn't look in the right
+// location for vstest.console.exe, see 
+// https://github.com/cake-build/cake/issues/1522#issuecomment-341612194
+VSTestSettings FixToolPath(VSTestSettings settings)
+{
+  settings.ToolPath = VSWhereLatest(new VSWhereLatestSettings { 
+    Requires = "Microsoft.VisualStudio.PackageGroup.TestTools.Core" 
+  }).CombineWithFilePath(File(@"Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"));
+  return settings;
+}
+
+Task("Generate-Coverage")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    VSTest(testLocation, FixToolPath(new VSTestSettings
+    {
+        EnableCodeCoverage = true,
+        // use separate process to get accurate coverage data
+        InIsolation = true, 
+        // VSTS only speaks trx
+        Logger = "trx", 
+        // run VSTest with the xunit adapter
+        TestAdapterPath = 
+          "tools/xunit.runner.visualstudio.2.3.1/build/_common" 
+    }));
 });
 
 //////////////////////////////////////////////////////////////////////
