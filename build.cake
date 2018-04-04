@@ -12,6 +12,14 @@ Task("Clean")
     CleanDirectories("./**/obj");
 });
 
+Task("Restore-NuGet-Packages")
+    .IsDependentOn("Clean")
+    .Does(() =>
+{
+    DotNetCoreRestore();
+    //NuGetRestore("./XUnitTestProject1.sln");
+});
+
 Task("Version")
     .Does(() =>
 {
@@ -24,14 +32,6 @@ Task("Version")
             UpdateAssemblyInfo = true
         });
     }
-});
-
-Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-    DotNetCoreRestore();
-    //NuGetRestore("./XUnitTestProject1.sln");
 });
 
 Task("Build")
