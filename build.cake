@@ -1,5 +1,3 @@
-#tool nuget:?package=xunit.runner.console&version=2.3.1
-#tool nuget:?package=xunit.runner.visualstudio&version=2.3.1
 #tool nuget:?package=GitVersion.CommandLine&version=3.6.5
 
 var target = Argument("target", "Default");
@@ -49,7 +47,8 @@ Task("Run-Unit-Tests")
     .Does(() =>
 {
     // for .net framework
-    // XUnit2("./**/bin/" + configuration + "/netcoreapp2.0/CakeSample.Test.dll", 
+    // #tool nuget:?package=xunit.runner.console&version=2.3.1
+    // XUnit2($"./**/bin/{configuration}/CakeSample.Test.dll", 
     //      new XUnit2Settings {
     //          Parallelism = ParallelismOption.All
     //      });
@@ -57,7 +56,8 @@ Task("Run-Unit-Tests")
     // for .net core
     DotNetCoreTest("./CakeSample.Test/CakeSample.Test.csproj", 
         new DotNetCoreTestSettings {
-            NoBuild = false
+            Configuration = configuration,
+            NoBuild = true
         });
 });
 
