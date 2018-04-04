@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSample.Core", "ClassLibrary1\CakeSample.Core.csproj", "{C007E302-BF76-4040-936E-68F9B24246E3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{208CEDA8-AB59-4DE2-A3AF-627A2DB344AF}"
 	ProjectSection(SolutionItems) = preProject
 		build.cake = build.cake
 		build.ps1 = build.ps1
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSample.Cmd", "ConsoleApp1\CakeSample.Cmd.csproj", "{38120E6E-F3BE-4B76-92A4-F3FA5BFD2EF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSample.Test", "CakeSample.Test\CakeSample.Test.csproj", "{C35163E6-F554-4294-AB0D-99A13E3553C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeSample.Test", "CakeSample.Test\CakeSample.Test.csproj", "{C35163E6-F554-4294-AB0D-99A13E3553C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSample.Cmd", "CakeSample.Cmd\CakeSample.Cmd.csproj", "{42BB82CA-A9CC-4BC9-B094-66EEDE5E59D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSample.Core", "CakeSample.Core\CakeSample.Core.csproj", "{8683C1B1-70F6-4C5E-A6DB-091D40A3EF43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C007E302-BF76-4040-936E-68F9B24246E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C007E302-BF76-4040-936E-68F9B24246E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C007E302-BF76-4040-936E-68F9B24246E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C007E302-BF76-4040-936E-68F9B24246E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38120E6E-F3BE-4B76-92A4-F3FA5BFD2EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38120E6E-F3BE-4B76-92A4-F3FA5BFD2EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38120E6E-F3BE-4B76-92A4-F3FA5BFD2EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38120E6E-F3BE-4B76-92A4-F3FA5BFD2EF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C35163E6-F554-4294-AB0D-99A13E3553C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C35163E6-F554-4294-AB0D-99A13E3553C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C35163E6-F554-4294-AB0D-99A13E3553C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C35163E6-F554-4294-AB0D-99A13E3553C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BB82CA-A9CC-4BC9-B094-66EEDE5E59D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BB82CA-A9CC-4BC9-B094-66EEDE5E59D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BB82CA-A9CC-4BC9-B094-66EEDE5E59D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BB82CA-A9CC-4BC9-B094-66EEDE5E59D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8683C1B1-70F6-4C5E-A6DB-091D40A3EF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8683C1B1-70F6-4C5E-A6DB-091D40A3EF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8683C1B1-70F6-4C5E-A6DB-091D40A3EF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8683C1B1-70F6-4C5E-A6DB-091D40A3EF43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CakeSample.Core\CakeSample.Core.csproj" />
+    <ProjectReference Include="..\ClassLibrary1\CakeDemo.Core.csproj" />
+  </ItemGroup>
+
+</Project>
