@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CakeSample.Core\CakeSample.Core.csproj" />
-    <ProjectReference Include="..\ClassLibrary1\CakeDemo.Core.csproj" />
   </ItemGroup>
 
 </Project>
