@@ -6,7 +6,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var result = ClassLibrary1.Class1.SayHello("NoVa Code Camp");
+            Console.WriteLine(result);
         }
     }
 }
